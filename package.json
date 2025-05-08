@@ -10,13 +10,14 @@
     "db:types": "npx supabase gen types typescript --project-id gurkpofwyknxjvcbnnaj > lib/db_types.ts"
   },
   "dependencies": {
+    "@next/third-parties": "^15.3.2",
     "@radix-ui/react-slot": "^1.2.2",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.508.0",
-    "next": "15.3.2",
+    "next": "^15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stripe": "^18.1.0",
