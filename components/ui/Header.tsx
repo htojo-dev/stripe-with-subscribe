@@ -4,7 +4,7 @@ import { getSession } from "@/lib/supabase/session";
 import LoginClientBtn from "../auth/LoginBtn";
 
 const Header = async () => {
-  const session = await getSession();
+  const user = await getSession();
 
   return (
     <div className="flex py-4 px-6 border-b border-gray-200">
@@ -15,7 +15,7 @@ const Header = async () => {
         <Button variant="outline">価格</Button>
       </Link>
       <div className="ml-auto">
-        <LoginClientBtn session={session} />
+        <LoginClientBtn user={user} />
       </div>
     </div>
   );

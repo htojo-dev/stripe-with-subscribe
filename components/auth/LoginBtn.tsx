@@ -2,10 +2,10 @@
 
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
-export const LoginClientBtn = ({ session }: { session: Session | null }) => {
+export const LoginClientBtn = ({ user }: {user: User | null}) => {
   const router = useRouter();
   const supabase = createClient();
 
@@ -26,7 +26,7 @@ export const LoginClientBtn = ({ session }: { session: Session | null }) => {
 
   return (
     <>
-      {session ? (
+      {user ? (
         <Button onClick={handlelogout}>ログアウト</Button>
       ) : (
         <Button onClick={handlelogin}>ログイン</Button>
