@@ -6,8 +6,11 @@ import { YouTubeEmbed } from "@next/third-parties/google";
 const page = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
   const idNum = parseInt(id, 10);
-  const lesson = await getSingleLesson(idNum);
-  const video = await getPremiumContent(idNum);
+  const [lesson, video] = await Promise.all([
+    await getSingleLesson(idNum),
+    await getPremiumContent(idNum)
+  ])
+
   const videoId = video?.video_url
     ? extractYouTubeVideoId(video.video_url)
     : null;
