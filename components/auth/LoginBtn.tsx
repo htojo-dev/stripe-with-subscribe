@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 
-export const LoginClientBtn = ({ user }: {user: User | null}) => {
+export const LoginBtn = ({ user }: {user: User | null}) => {
   const router = useRouter();
   const supabase = createClient();
 
@@ -35,4 +35,4 @@ export const LoginClientBtn = ({ user }: {user: User | null}) => {
   );
 };
 
-export default LoginClientBtn;
+export default LoginBtn;

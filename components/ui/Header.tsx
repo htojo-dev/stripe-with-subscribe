@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/supabase/session";
-import LoginClientBtn from "../auth/LoginBtn";
+import LoginBtn from "../auth/LoginBtn";
 
 const Header = async () => {
   const user = await getSession();
@@ -15,7 +15,7 @@ const Header = async () => {
         <Button variant="outline">価格</Button>
       </Link>
       <div className="ml-auto">
-        <LoginClientBtn user={user} />
+        <LoginBtn user={user} />
       </div>
     </div>
   );

@@ -12,19 +12,23 @@ import { getAllPlans } from "@/lib/stripe";
 import { createClient } from "@/utils/supabase/server";
 import { getProfileData } from "@/lib/supabase/profile";
 import SubscriptionBtn from "@/components/checkout/SubscriptionBtn";
+import LoginBtn from "@/components/auth/LoginBtn";
+import { getSession } from "@/lib/supabase/session";
 
 const page = async () => {
+  const user = await getSession();
+
   const supabase = await createClient();
-  const { data: user } = await supabase.auth.getSession();
+  const { data: sessionUser } = await supabase.auth.getSession();
 
   const [plans, profile] = await Promise.all([
     await getAllPlans(),
     await getProfileData(),
   ]);
 
-  const loggidIn = !!user.session && profile?.is_subscribed === false;
-  const notLongIn = !user.session;
-  const subscriptionManage = !!user.session && profile?.is_subscribed === true;
+  const loggidIn = !!sessionUser.session && profile?.is_subscribed === false;
+  const notLongIn = !sessionUser.session;
+  const subscriptionManage = !!sessionUser.session && profile?.is_subscribed === true;
 
   return (
     <ul className="w-full max-w-3xl mx-auto py-16 flex justify-around">
@@ -41,7 +45,7 @@ const page = async () => {
             </CardContent>
             <CardFooter>
               {loggidIn && <SubscriptionBtn planId={plan.id} />}
-              {notLongIn && <Button>ログインする</Button>}
+              {notLongIn && <LoginBtn user={user} />}
               {subscriptionManage && <Button>管理する</Button>}
             </CardFooter>
           </Card>
