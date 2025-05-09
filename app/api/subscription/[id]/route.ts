@@ -2,11 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  console.log(params);
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
+  const priceId = url.pathname.split("/").pop(); // [priceId] をパスから抽出
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
   const user = data.user;
@@ -20,9 +18,6 @@ export async function GET(
     .select("stripe_customer")
     .eq("id", user?.id)
     .single();
-
-  const fetchedParams = await params;
-  const priceId = fetchedParams.id;
 
   if (!stripe_customer_data?.stripe_customer) {
     return NextResponse.json(

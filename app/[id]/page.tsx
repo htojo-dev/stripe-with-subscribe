@@ -3,7 +3,7 @@ import { getPremiumContent } from "@/lib/supabase/premium_content";
 import { extractYouTubeVideoId } from "@/utils/extractYoutubeVideoId";
 import { YouTubeEmbed } from "@next/third-parties/google";
 
-const page = async ({ params }: { params: { id: string } }) => {
+const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
   const idNum = parseInt(id, 10);
   const [lesson, video] = await Promise.all([
