@@ -11,6 +11,7 @@ import {
 import { getAllPlans } from "@/lib/stripe";
 import { createClient } from "@/utils/supabase/server";
 import { getProfileData } from "@/lib/supabase/profile";
+import SubscriptionBtn from "@/components/checkout/SubscriptionBtn";
 
 const page = async () => {
   const supabase = await createClient();
@@ -39,7 +40,7 @@ const page = async () => {
               {plan.price}円 / {plan.interval}
             </CardContent>
             <CardFooter>
-              {loggidIn && <Button>契約する</Button>}
+              {loggidIn && <SubscriptionBtn planId={plan.id} />}
               {notLongIn && <Button>ログインする</Button>}
               {subscriptionManage && <Button>管理する</Button>}
             </CardFooter>
