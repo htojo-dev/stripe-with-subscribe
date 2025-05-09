@@ -46,7 +46,7 @@ export async function GET(
     success_url: `${process.env.END_POINT}/payment/success`,
     cancel_url: `${process.env.END_POINT}/payment/cancel`,
   });
-  console.log("sessionの中身",session);
+  // console.log("sessionの中身",session);
 
   return NextResponse.json({ id: session.id });
 }
