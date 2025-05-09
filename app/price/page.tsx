@@ -14,6 +14,7 @@ import { getProfileData } from "@/lib/supabase/profile";
 import SubscriptionBtn from "@/components/checkout/SubscriptionBtn";
 import LoginBtn from "@/components/auth/LoginBtn";
 import { getSession } from "@/lib/supabase/session";
+import Link from "next/link";
 
 const page = async () => {
   const user = await getSession();
@@ -28,7 +29,8 @@ const page = async () => {
 
   const loggidIn = !!sessionUser.session && profile?.is_subscribed === false;
   const notLongIn = !sessionUser.session;
-  const subscriptionManage = !!sessionUser.session && profile?.is_subscribed === true;
+  const subscriptionManage =
+    !!sessionUser.session && profile?.is_subscribed === true;
 
   return (
     <ul className="w-full max-w-3xl mx-auto py-16 flex justify-around">
@@ -46,7 +48,11 @@ const page = async () => {
             <CardFooter>
               {loggidIn && <SubscriptionBtn planId={plan.id} />}
               {notLongIn && <LoginBtn user={user} />}
-              {subscriptionManage && <Button>管理する</Button>}
+              {subscriptionManage && (
+                <Button>
+                  <Link href="/dashboard">サブスクリプション管理する</Link>
+                </Button>
+              )}
             </CardFooter>
           </Card>
         </li>
