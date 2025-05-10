@@ -38,8 +38,8 @@ export async function GET(req: NextRequest) {
         quantity: 1,
       },
     ],
-    success_url: `${process.env.END_POINT}/payment/success`,
-    cancel_url: `${process.env.END_POINT}/payment/cancel`,
+    success_url: `${process.env.BASE_PATH}/payment/success`,
+    cancel_url: `${process.env.BASE_PATH}/payment/cancel`,
   });
   // console.log("sessionの中身",session);
 

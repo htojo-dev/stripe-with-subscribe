@@ -7,7 +7,7 @@ const ManageBtn = () => {
   const router = useRouter();
 
   const openPortal = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_END_POINT}/api/portal`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_PATH}/api/portal`);
     const data = await res.json();
 
     router.push(data.url);

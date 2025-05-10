@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 const SubscriptionBtn = ({ planId }: { planId: string }) => {
   const processSubscription = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_END_POINT}/api/subscription/${planId}`
+      `${process.env.NEXT_PUBLIC_BASE_PATH}/api/subscription/${planId}`
     );
     // const json = await res.json();
     // console.log(json);
