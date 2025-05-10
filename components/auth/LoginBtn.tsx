@@ -1,35 +1,17 @@
-"use client";
-
-import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
+import Link from "next/link";
+import Logout from "./Logout";
 
-export const LoginBtn = ({ user }: {user: User | null}) => {
-  const router = useRouter();
-  const supabase = createClient();
-
-  const handlelogin = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: "github",
-      options: {
-        redirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-  };
-
-  const handlelogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
-  };
-
+export const LoginBtn = ({ user }: { user: User | null }) => {
   return (
     <>
       {user ? (
-        <Button onClick={handlelogout}>ログアウト</Button>
+        <Logout />
       ) : (
-        <Button onClick={handlelogin}>ログイン</Button>
+        <Link href="/login">
+          <Button>ログイン</Button>
+        </Link>
       )}
     </>
   );
