@@ -22,7 +22,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
       {videoId ? (
         <YouTubeEmbed height={400} videoid={videoId} />
       ) : (
-        <p>No video available</p>
+        <p>このコンテンツはサブスク契約者のみ閲覧できます。</p>
       )}
     </div>
   );
