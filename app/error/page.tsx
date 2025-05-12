@@ -1,5 +1,5 @@
 const ErrorPage = () => {
-  return <p>Sorry, something went wrong</p>
+  return <p>メールアドレスかパスワードが間違ってます</p>
 }
 
 export default ErrorPage
