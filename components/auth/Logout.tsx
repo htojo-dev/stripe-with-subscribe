@@ -9,13 +9,13 @@ const Logout = () => {
   const router = useRouter();
   const supabase = createClient();
 
-  const handlelogout = async () => {
+  const handleLogout = async () => {
     await supabase.auth.signOut();
-    router.push("/");
+    router.push("/login");
     router.refresh();
   };
 
-  return <Button onClick={handlelogout}>ログアウト</Button>
+  return <Button onClick={handleLogout}>ログアウト</Button>
 }
 
 export default Logout
