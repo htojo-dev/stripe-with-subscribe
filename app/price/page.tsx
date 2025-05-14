@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { getAllPlans } from "@/lib/stripe";
 import { createClient } from "@/utils/supabase/server";
-import { getProfileData } from "@/lib/supabase/profile";
+import { getProfileData } from "@/lib/supabase/profile/profile-server";
 import SubscriptionBtn from "@/components/checkout/SubscriptionBtn";
 import LoginBtn from "@/components/auth/LoginBtn";
 import { getSession } from "@/lib/supabase/session";

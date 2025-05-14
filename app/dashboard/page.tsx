@@ -1,5 +1,5 @@
 import ManageBtn from "@/components/checkout/ManageBtn";
-import { getProfileData } from "@/lib/supabase/profile";
+import { getProfileData } from "@/lib/supabase/profile/profile-server";
 import { getSession } from "@/lib/supabase/session";
 
 const page = async () => {

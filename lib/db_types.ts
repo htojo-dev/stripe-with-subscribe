@@ -63,6 +63,7 @@ export type Database = {
           id: string
           interval: string | null
           is_subscribed: boolean | null
+          name: string | null
           stripe_customer: string | null
         }
         Insert: {
@@ -71,6 +72,7 @@ export type Database = {
           id?: string
           interval?: string | null
           is_subscribed?: boolean | null
+          name?: string | null
           stripe_customer?: string | null
         }
         Update: {
@@ -79,6 +81,7 @@ export type Database = {
           id?: string
           interval?: string | null
           is_subscribed?: boolean | null
+          name?: string | null
           stripe_customer?: string | null
         }
         Relationships: []

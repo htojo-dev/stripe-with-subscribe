@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
+import { getProfileData } from "@/lib/supabase/profile/profile-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -12,37 +12,30 @@ const Account = () => {
   const [loading, setLoading] = useState(true);
 
   // useSWRはキャッシュを前提としていて反映にラグが出やすいため、useEffectで処理
-  useEffect(() => {
-    const getUser = async () => {
-      const supabase = await createClient();
-      const { data, error } = await supabase.auth.getUser();
-      const user = data.user;
+  useEffect (() => {
+    const fetchData = async () => {
+      try {
+        const result = await getProfileData({redirectOnFail: false})
 
-      if (error || !user) {
-        router.push("/login");
-        return;
+        if(!result) {
+          router.push('/login');
+          return;
+        }
+
+        const {profile, user} = result;
+
+        setName(profile.name || "");
+        setEmail(profile.email || "");
+        setCanChangeEmail(user.app_metadata?.provider === "email");
+
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
       }
+    }
 
-      const { data: profile, error: profileError } = await supabase
-        .from("profile")
-        .select("name, email")
-        .eq("id", user.id)
-        .single();
-
-      if (profileError) {
-        console.error(profileError);
-        return;
-      }
-
-      setName(profile.name || "");
-      setEmail(profile.email || "");
-      setCanChangeEmail(user.app_metadata?.provider === "email");
-
-      setLoading(false);
-    };
-
-    getUser();
-  }, [router]);
+    fetchData();
+  }, [router])
 
   if (loading) {
     return <p>読み込み中...</p>;
