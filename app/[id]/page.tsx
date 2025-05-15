@@ -8,8 +8,8 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const idNum = parseInt(id, 10);
   const [lesson, video] = await Promise.all([
     await getSingleLesson(idNum),
-    await getPremiumContent(idNum)
-  ])
+    await getPremiumContent(idNum),
+  ]);
 
   const videoId = video?.video_url
     ? extractYouTubeVideoId(video.video_url)

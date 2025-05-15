@@ -21,6 +21,12 @@ export async function getPremiumContent(idNum: number) {
     .single();
 
     if (error) {
+      // RSL設定(auth.uid() = profile.id) AND (profile.is_subscribed = true)
+      // この処理により未契約、且つログインユーザーにはハイドレーションエラーが発生
+      // そのため、nullを返す処理を追加
+      if(error.code === "PGRST116") {
+        return null;
+      }
       throw new Error(`データの取得に失敗しました: ${error.message}`);
     }
 
