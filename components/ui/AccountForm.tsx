@@ -15,17 +15,27 @@ const AccountForm = () => {
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const [successMsg, setSuccessMsg] = useState("");
 
   // サーバー関数だけでは更新後にヘッダーのnser.nameが変更されないため、
   // onSubmitでhandleSubmit関数を呼び、routerが使用できるようにする
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMsg("");
+    setSuccessMsg("");
 
     const formData = new FormData(e.currentTarget);
 
     try {
-      await updateForm(formData);
+      const result = await updateForm(formData);
+      if (result?.success) {
+        setSuccessMsg(
+          result.emailChanged
+            ? "プロフィールを更新しました。新しいメールアドレスに確認メールを送信しました。"
+            : "プロフィールを更新しました。"
+        );
+      }
+
       startTransition(() => {
         router.refresh();
       });
@@ -69,6 +79,7 @@ const AccountForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
+      {successMsg && <p className="text-red-500 mb-4">{successMsg}</p>}
       <div className="mb-5">
         <div>
           <label htmlFor="name">Name :</label>
@@ -98,7 +109,7 @@ const AccountForm = () => {
         </div>
       </div>
 
-      <Button type="submit" disabled={isPending} >
+      <Button type="submit" disabled={isPending}>
         {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         更新
       </Button>
