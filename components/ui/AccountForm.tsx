@@ -6,28 +6,41 @@ import { useRouter } from "next/navigation";
 import updateForm from "@/utils/updateForm";
 import { Button } from "./button";
 import { Loader2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { TablesInsert } from "@/lib/db_types";
+
+type FormVal = Pick<TablesInsert<"profile">, "name" | "email">;
 
 const AccountForm = () => {
   const router = useRouter();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [canChangeEmail, setCanChangeEmail] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
   const [successMsg, setSuccessMsg] = useState("");
 
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    // formState: { errors },
+  } = useForm<FormVal>();
+
   // サーバー関数だけでは更新後にヘッダーのnser.nameが変更されないため、
-  // onSubmitでhandleSubmit関数を呼び、routerが使用できるようにする
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // onSubmitでhandleSubmit(onSubmit)関数を呼び、routerが使用できるようにする
+  const onSubmit = async (data: FormVal) => {
+    console.log(data);
     setErrorMsg("");
     setSuccessMsg("");
 
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData();
+    formData.append("name", data.name ?? "");
+    formData.append("email", data.email ?? "");
 
     try {
       const result = await updateForm(formData);
+
       if (result?.success) {
         setSuccessMsg(
           result.emailChanged
@@ -58,8 +71,8 @@ const AccountForm = () => {
 
         const { profile, user } = result;
 
-        setName(profile.name || "");
-        setEmail(profile.email || "");
+        setValue("name", profile.name || "");
+        setValue("email", profile.email || "");
         setCanChangeEmail(user.app_metadata?.provider === "email");
 
         setLoading(false);
@@ -70,41 +83,35 @@ const AccountForm = () => {
     };
 
     fetchData();
-  }, [router]);
+  }, [router, setValue]);
 
   if (loading) {
     return <p>読み込み中...</p>;
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       {errorMsg && <p className="text-red-500 mb-4">{errorMsg}</p>}
-      {successMsg && <p className="text-red-500 mb-4">{successMsg}</p>}
+      {successMsg && <p className="text-green-500 mb-4">{successMsg}</p>}
       <div className="mb-5">
         <div>
           <label htmlFor="name">Name :</label>
           <input
-            type="text"
             id="name"
             className="w-full bg-gray-100 py-2 px-4 rounded-xs cursor-pointer"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            {...register("name")}
           />
         </div>
         <div>
           <label htmlFor="email">Email :</label>
           {canChangeEmail ? (
             <input
-              type="email"
               id="email"
               className="w-full bg-gray-100 py-2 px-4 rounded-xs cursor-pointer"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email")}
             />
           ) : (
-            <p>{email}</p>
+            <p>{watch("email")}</p>
           )}
         </div>
       </div>
