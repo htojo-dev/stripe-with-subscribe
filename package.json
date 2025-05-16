@@ -10,6 +10,7 @@
     "db:types": "npx supabase gen types typescript --project-id gurkpofwyknxjvcbnnaj > lib/db_types.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@next/third-parties": "^15.3.2",
     "@radix-ui/react-slot": "^1.2.2",
     "@stripe/stripe-js": "^7.3.0",
@@ -23,7 +24,8 @@
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
     "stripe": "^18.1.0",
-    "tailwind-merge": "^3.2.0"
+    "tailwind-merge": "^3.2.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

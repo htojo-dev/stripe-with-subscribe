@@ -7,9 +7,12 @@ import updateForm from "@/utils/updateForm";
 import { Button } from "./button";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { TablesInsert } from "@/lib/db_types";
+import { validationSchema} from "@/utils/validationSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
-type FormVal = Pick<TablesInsert<"profile">, "name" | "email">;
+
+type FormVal = z.infer<typeof validationSchema>;
 
 const AccountForm = () => {
   const router = useRouter();
@@ -24,8 +27,8 @@ const AccountForm = () => {
     handleSubmit,
     setValue,
     watch,
-    // formState: { errors },
-  } = useForm<FormVal>();
+    formState: { errors },
+  } = useForm<FormVal>({mode: "onChange", resolver: zodResolver(validationSchema)});
 
   // サーバー関数だけでは更新後にヘッダーのnser.nameが変更されないため、
   // onSubmitでhandleSubmit(onSubmit)関数を呼び、routerが使用できるようにする
@@ -101,6 +104,7 @@ const AccountForm = () => {
             className="w-full bg-gray-100 py-2 px-4 rounded-xs cursor-pointer"
             {...register("name")}
           />
+          <p className="text-red-500 mb-4">{errors.name?.message}</p>
         </div>
         <div>
           <label htmlFor="email">Email :</label>
@@ -113,6 +117,7 @@ const AccountForm = () => {
           ) : (
             <p>{watch("email")}</p>
           )}
+          <p className="text-red-500 mb-4">{errors.email?.message}</p>
         </div>
       </div>
 
