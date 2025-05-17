@@ -9,9 +9,7 @@ const Account = () => {
       <div className="mb-10">
         <AccountForm />
       </div>
-      <div className="mb-10">
-        <PasswordBtn />
-      </div>
+      <PasswordBtn />
       <Logout />
     </div>
   );
