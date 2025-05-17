@@ -1,4 +1,5 @@
 import Logout from "@/components/auth/Logout";
+import PasswordBtn from "@/components/auth/PasswordBtn";
 import AccountForm from "@/components/ui/AccountForm";
 
 const Account = () => {
@@ -7,6 +8,9 @@ const Account = () => {
       <h2 className="mb-10">ユーザープロフィール画面</h2>
       <div className="mb-10">
         <AccountForm />
+      </div>
+      <div className="mb-10">
+        <PasswordBtn />
       </div>
       <Logout />
     </div>
