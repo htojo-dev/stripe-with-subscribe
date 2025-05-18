@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "../ui/button";
 import { login, signup } from "./actions";
 
@@ -35,6 +36,8 @@ const Eamilform = () => {
           sign up
         </Button>
       </div>
+
+      <p className="mb-5">パスワードを忘れた場合は<Link href="/password-reset" className="underline">こちら</Link></p>
     </form>
   );
 };

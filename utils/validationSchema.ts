@@ -25,19 +25,34 @@ export const validationPassword = z
       ),
     confirm_password: z.string().nonempty("確認用パスワードは必須です。"),
   })
-  .superRefine(({current_password, new_password, confirm_password}, ctx) => {
-    if(new_password !== confirm_password) {
+  .superRefine(({ current_password, new_password, confirm_password }, ctx) => {
+    if (new_password !== confirm_password) {
       ctx.addIssue({
         path: ["confirm_password"],
         code: "custom",
         message: "パスワードが一致しません。",
       });
     }
-    if(current_password === new_password) {
+    if (current_password === new_password) {
       ctx.addIssue({
         path: ["new_password"],
         code: "custom",
-        message: "現在のパスワードと一緒です。"
-      })
+        message: "現在のパスワードと一緒です。",
+      });
     }
-  })
+  });
+
+export const validationResetPassword = z.object({
+  email: z.string().nonempty("入力してください。"),
+});
+
+export const validationUpdatePassword = z.object({
+  password: z
+  .string()
+  .nonempty("パスワードは必須です。")
+  .min(6, "6文字以上で入力してください")
+  .regex(
+    /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+    "パスワードは半角英数字混合で入力してください"
+  ),
+});
