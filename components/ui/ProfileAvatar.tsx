@@ -2,7 +2,12 @@ import { getProfileData } from "@/lib/supabase/profile/profile-server";
 import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
 
-const ProfileAvatar = async () => {
+interface Props {
+  width: number;
+  height: number;
+}
+
+const ProfileAvatar = async ({width = 32, height = 32}: Props) => {
   const profile = await getProfileData();
   // console.log(profile);
 
@@ -20,8 +25,8 @@ const ProfileAvatar = async () => {
       <Image
         src={avatarUrl}
         alt="プロフィール画像"
-        width={32}
-        height={32}
+        width={width}
+        height={height}
         className="rounded-full"
       />
     </div>
