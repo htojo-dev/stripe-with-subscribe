@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getSession } from "@/lib/supabase/session";
 import LoginBtn from "../auth/LoginBtn";
+import ProfileAvatar from "./ProfileAvatar";
 
 const Header = async () => {
   const user = await getSession();
@@ -20,7 +21,8 @@ const Header = async () => {
       <Link href="/price" className="ml-4">
         <Button variant="outline">価格</Button>
       </Link>
-      <div className="ml-auto">
+      <div className="ml-auto flex items-center">
+        <ProfileAvatar />
         <LoginBtn user={user} />
       </div>
     </div>
