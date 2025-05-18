@@ -22,7 +22,9 @@ const Header = async () => {
         <Button variant="outline">価格</Button>
       </Link>
       <div className="ml-auto flex items-center">
-        <ProfileAvatar width={32} height={32} />
+        <div className="mr-3">
+          <ProfileAvatar width={32} height={32} />
+        </div>
         <LoginBtn user={user} />
       </div>
     </div>
