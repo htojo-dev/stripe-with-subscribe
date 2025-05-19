@@ -2,9 +2,9 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function getAllLessons() {
   const supabase = await createClient();
-  const {data, error} = await supabase.from("lesson").select("*");
+  const { data, error } = await supabase.from("lesson").select("*");
 
-  if(error) {
+  if (error) {
     throw new Error(error.message);
   }
 
@@ -12,10 +12,18 @@ export async function getAllLessons() {
 }
 
 export async function getSingleLesson(idNum: number) {
-  const supabase = await createClient();
-  const {data, error} = await supabase.from("lesson").select("*").eq("id", idNum).single();
+  if (isNaN(idNum)) {
+    throw new Error("Invalid lesson ID");
+  }
 
-  if(error) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("lesson")
+    .select("*")
+    .eq("id", idNum)
+    .single();
+
+  if (error) {
     throw new Error(error.message);
   }
 

@@ -2,10 +2,16 @@ import { getSingleLesson } from "@/lib/supabase/lesson";
 import { getPremiumContent } from "@/lib/supabase/premium_content";
 import { extractYouTubeVideoId } from "@/utils/extractYoutubeVideoId";
 import { YouTubeEmbed } from "@next/third-parties/google";
+import { notFound } from "next/navigation";
 
-const page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const idNum = parseInt(id, 10);
+const page = async ({ params }: { params: {id: string} }) => {
+  // const { id } = await params;
+  const idNum = parseInt(params.id, 10);
+
+  if(isNaN(idNum)) {
+    notFound();
+  }
+
   const [lesson, video] = await Promise.all([
     await getSingleLesson(idNum),
     await getPremiumContent(idNum),
