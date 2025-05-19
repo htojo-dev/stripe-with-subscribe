@@ -1,6 +1,9 @@
+import { redirectIfAuthenticated } from "@/utils/guards";
 import PasswordReset from "@/components/auth/PasswordReset";
 
-const ResetPassword = () => {
+const ResetPassword = async () => {
+  await redirectIfAuthenticated();
+
   return (
     <div className="w-full max-w-3xl mx-auto my-16 px-2">
       <h2 className="mb-5">パスワードを忘れてしまった方</h2>
