@@ -35,9 +35,14 @@ function AvatarUploadForm() {
 
   return (
     <div>
-      <input type="file" ref={fileRef} accept="image/*" />
+      <input
+        type="file"
+        ref={fileRef}
+        accept="image/*"
+        className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:bg-black file:text-white hover:file:bg-gray-800"
+      />
       <Button
-        className="mt-2 px-4 py-2 bg-blue-600 text-white rounded disabled:opacity-50"
+        className="mt-2 px-4 py-2 text-white rounded disabled:opacity-50"
         onClick={handleUpload}
         disabled={isUploading}
       >
