@@ -21,13 +21,14 @@ const ProfileAvatar = async ({width = 32, height = 32}: Props) => {
   // console.log(avatarUrl);
 
   return (
-    <Image
-      src={avatarUrl}
-      alt="プロフィール画像"
-      width={width}
-      height={height}
-      className="rounded-full"
-    />
+    <div className="rounded-full overflow-hidden relative" style={{ width: `${width}px`, height: `${height}px`}}>
+      <Image
+        src={avatarUrl}
+        alt="プロフィール画像"
+        fill
+        className="object-cover"
+      />
+    </div>
   );
 };
 

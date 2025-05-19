@@ -29,3 +29,31 @@ export async function getProfileData({redirectOnFail = true} = {}) {
 
   return {profile, user};
 }
+
+export const updateAvatarUrl = async (avatar_url: string) => {
+  const supabase = createClient();
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  // console.log("user:", user, userError);
+
+  if(userError) {
+    console.error("ユーザー取得エラー:", userError);
+    return;
+  }
+  
+  if (!user) {
+    console.warn("認証されたユーザーがいません");
+    return;
+  }
+
+  const {data, error} = await supabase
+    .from("profile")
+    .update({ avatar_url })
+    .eq("id", user.id)
+    .select();
+
+    console.log("profile select result:", data, error);
+
+  if(error) {
+    console.error("プロフィール更新エラー:", error);
+  }
+};

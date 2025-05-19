@@ -2,6 +2,7 @@ import Logout from "@/components/auth/Logout";
 import PasswordBtn from "@/components/auth/PasswordBtn";
 import AccountForm from "@/components/ui/AccountForm";
 import ProfileAvatar from "@/components/ui/ProfileAvatar";
+import AvatarUploadForm from "@/components/ui/AvatarUploadForm";
 
 const Account = () => {
   return (
@@ -10,6 +11,7 @@ const Account = () => {
 
       <div className="mb-10">
         <ProfileAvatar width={92} height={92} />
+        <AvatarUploadForm />
       </div>
       <div className="mb-10">
         <AccountForm />
