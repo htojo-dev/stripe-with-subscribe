@@ -9,3 +9,12 @@ export const redirectIfAuthenticated = async (path = "/") => {
     redirect(path);
   }
 };
+
+export const redirectIfUnauthenticated = async (path = "/login") => {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect(path);
+  }
+};

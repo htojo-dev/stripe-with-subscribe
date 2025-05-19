@@ -1,14 +1,11 @@
 import ManageBtn from "@/components/checkout/ManageBtn";
 import { getProfileData } from "@/lib/supabase/profile/profile-server";
-import { getSession } from "@/lib/supabase/session";
+import { redirectIfUnauthenticated } from "@/utils/guards";
 
-const page = async () => {
-  const user = await getSession();
+const DashboardPage = async () => {
+  await redirectIfUnauthenticated();
+
   const profile = await getProfileData();
-
-  if(!user) {
-    return <p>ユーザーが認証されてません。<br />認証をしてください</p>
-  }
 
   return (
     <div className="w-full max-w-3xl mx-auto py-16 px-8">
@@ -25,4 +22,4 @@ const page = async () => {
   );
 };
 
-export default page;
+export default DashboardPage;

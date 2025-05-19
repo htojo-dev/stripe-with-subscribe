@@ -3,8 +3,11 @@ import PasswordBtn from "@/components/auth/PasswordBtn";
 import AccountForm from "@/components/ui/AccountForm";
 import ProfileAvatar from "@/components/ui/ProfileAvatar";
 import AvatarUploadForm from "@/components/ui/AvatarUploadForm";
+import { redirectIfUnauthenticated } from "@/utils/guards";
 
-const Account = () => {
+const Account = async () => {
+  await redirectIfUnauthenticated();
+
   return (
     <div className="w-full max-w-3xl mx-auto my-16 px-2">
       <h2 className="mb-10">ユーザープロフィール画面</h2>
