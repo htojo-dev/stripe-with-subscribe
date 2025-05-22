@@ -48,11 +48,21 @@ export const validationResetPassword = z.object({
 
 export const validationUpdatePassword = z.object({
   password: z
-  .string()
-  .nonempty("パスワードは必須です。")
-  .min(6, "6文字以上で入力してください")
-  .regex(
-    /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
-    "パスワードは半角英数字混合で入力してください"
-  ),
+    .string()
+    .nonempty("パスワードは必須です。")
+    .min(6, "6文字以上で入力してください")
+    .regex(
+      /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,100}$/i,
+      "パスワードは半角英数字混合で入力してください"
+    ),
+});
+
+export const validationContact = z.object({
+  name: z.string().nonempty("名前は必須です。"),
+  email: z
+    .string()
+    .nonempty("メールアドレスは必須です。")
+    .email("正しいメールアドレスで入力してください。"),
+  tel: z.string().nonempty("電話番号は必須です"),
+  message: z.string().nonempty("お問い合わせ内容は必須です。"),
 });
