@@ -21,6 +21,9 @@ const Header = async () => {
       <Link href="/price" className="ml-4">
         <Button variant="outline">価格</Button>
       </Link>
+      <Link href="/contact" className="ml-4">
+        <Button variant="outline">お問い合わせ</Button>
+      </Link>
       <div className="ml-auto flex items-center">
         <div className="mr-3">
           <ProfileAvatar width={32} height={32} />
